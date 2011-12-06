@@ -29,7 +29,7 @@ class FilteringHelperTest < ActionDispatch::IntegrationTest
   test "forbidden_render" do
 
     get 'forbidden_render'
-    assert_redirected_to "http://you_were_not_logged.inv"
+    assert_redirected_to "http://www.you-were-not-logged-in.inv"
 
     login
     get 'forbidden_render'
