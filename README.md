@@ -38,7 +38,7 @@ AdsenseCrawlerForPrivate.crawler_name = "craw_name_TEST"
 AdsenseCrawlerForPrivate.crawler_password = "crawler_password_TEST"
 
 # If you are paranoid you can specify ip addresses that are ok to the crawlers to access
-# AdsenseCrawlerForPrivate.ip_ranges = [IPAddr.new("127.0.0.1/20"), IPAddr.new("192.168.0.1")]
+# AdsenseCrawlerForPrivate.ip_ranges = [IPAddr.new("127.0.0.1"), IPAddr.new("192.168.0.1/20")]
 
 ```
 
@@ -79,14 +79,16 @@ directly.
 
 ### Testing your own stuff
 
-You can test your filters by setting cookie in the same way as in
-AdsenseCrawlerLoginController#login .
+You can test your filters by setting cookie in the same way as in AdsenseCrawlerLoginController#login .
+
+If you have enabled ip_ranges option you have to make sure that the ip that tests use is enabled for crawlers.
 
 ```
 test "here would be a test for logged crawler"
   # Dummy login for crawler
   cookies.signed[AdsenseCrawlerForPrivate.cookie_name] = AdsenseCrawlerForPrivate.cookie_hash("crawler name str", "127.0.0.1")
 
+  # Also make sure that
   #Normal test in here
   get :index
   assert_response :success
