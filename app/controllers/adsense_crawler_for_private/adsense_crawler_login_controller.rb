@@ -25,7 +25,7 @@ module AdsenseCrawlerForPrivate
         end
 
       else
-        str = "AdsenseCrawlerForPrivate not configured, no password given"
+        str = "AdsenseCrawlerForPrivate not configured, no password given."
         AdsenseCrawlerForPrivate.logger(str)
         render :text => str
       end

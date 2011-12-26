@@ -20,6 +20,10 @@
 
 # AdsenseCrawlerForPrivate
 
+Easy way to enable adsense crawler to login and see private or custom pages. Basically one custom login filter.
+
+[<img src="https://secure.travis-ci.org/holli/adsense_crawler_for_private.png" />](http://travis-ci.org/holli/adsense_crawler_for_private)
+
 ## Usage
 
 
@@ -36,6 +40,13 @@ AdsenseCrawlerForPrivate.crawler_password = "crawler_password_TEST"
 # If you are paranoid you can specify ip addresses that are ok to the crawlers to access
 # AdsenseCrawlerForPrivate.ip_ranges = [IPAddr.new("127.0.0.1/20"), IPAddr.new("192.168.0.1")]
 
+```
+
+**Routes: **
+
+```
+  # Give url "http://domain.dom/adsense_crawler_for_private/login" for crawlers to log in
+  mount AdsenseCrawlerForPrivate::Engine => "/adsense_crawler_for_private"
 ```
 
 **Rendering etc usage:** in controller define what to render for crawlers
@@ -72,12 +83,20 @@ You can test your filters by setting cookie in the same way as in
 AdsenseCrawlerLoginController#login .
 
 ```
-test "here would be a test"
+test "here would be a test for logged crawler"
   # Dummy login for crawler
   cookies.signed[AdsenseCrawlerForPrivate.cookie_name] = AdsenseCrawlerForPrivate.cookie_hash("crawler name str", "127.0.0.1")
 
   #Normal test in here
   get :index
+  assert_response :success
+  assert response.body.include?("Hi normal crawler")
+end
+test "here would be a test for non-logged crawler"
+  get :index
+  assert_response :success
+  assert response.body.include?("Hi normal user")
+end
 ```
 
 ### robots.txt
@@ -87,6 +106,8 @@ Remember to update robots.txt if you have previously forbidden adsense to crawl 
 ## Requirements
 
 Gem has been tested with ruby 1.8.7, 1.9.2 and Rails 3.1.
+
+[<img src="https://secure.travis-ci.org/holli/adsense_crawler_for_private.png" />](http://travis-ci.org/holli/adsense_crawler_for_private)
 
 http://travis-ci.org/#!/holli/adsense_crawler_for_private
 
