@@ -69,18 +69,15 @@ directly.
 ### Testing your own stuff
 
 You can test your filters by setting cookie in the same way as in
-AdsenseCrawlerLoginController#login
-
+AdsenseCrawlerLoginController#login .
 
 ```
-In test:
-  cookies.signed[AdsenseCrawlerForPrivate.cookie_name] = {
-            :value => AdsenseCrawlerForPrivate.cookie_str(crawler_name, request),
-            :expires => 2.days.from_now,
-            :domain => :all
-        }
+test "here would be a test"
+  # Dummy login for crawler
+  cookies.signed[AdsenseCrawlerForPrivate.cookie_name] = AdsenseCrawlerForPrivate.cookie_hash("crawler name str", "127.0.0.1")
 
-  Normal test in here
+  #Normal test in here
+  get :index
 ```
 
 ### robots.txt
@@ -89,11 +86,14 @@ Remember to update robots.txt if you have previously forbidden adsense to crawl 
 
 ## Requirements
 
+Gem has been tested with ruby 1.8.7, 1.9.2 and Rails 3.1.
+
+http://travis-ci.org/#!/holli/adsense_crawler_for_private
 
 ## Support
 
-
+Submit suggestions or feature requests as a GitHub Issue or Pull Request. Remember to update tests. Tests are quite extensive.
 
 ## License
 
-This project rocks and uses MIT-LICENSE.
+Released under the MIT license (http://www.opensource.org/licenses/mit-license.php)

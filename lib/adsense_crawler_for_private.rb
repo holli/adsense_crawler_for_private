@@ -37,10 +37,17 @@ module AdsenseCrawlerForPrivate
     end
     
     return login_ok
-	end
+  end
 
-	def self.cookie_str(name, request)
-    return [name, 2.days.from_now.httpdate, request.remote_addr].to_json
+  def self.cookie_hash(crawler_name, request_or_ip)
+    {:value => AdsenseCrawlerForPrivate.cookie_str(crawler_name, request_or_ip),
+     :expires => 2.days.from_now,
+     :domain => AdsenseCrawlerForPrivate.cookie_domain}
+  end
+
+	def self.cookie_str(crawler_name, request_or_ip)
+    ip_str = request_or_ip.respond_to?(:remote_addr) ? request_or_ip.remote_addr : request_or_ip.to_s
+    return [crawler_name, 2.days.from_now.httpdate, ip_str].to_json
 	end
 
 	def self.ip_check(request)

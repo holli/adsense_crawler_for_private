@@ -11,11 +11,7 @@ module AdsenseCrawlerForPrivate
             crawler_name == AdsenseCrawlerForPrivate.crawler_name and
             crawler_password == AdsenseCrawlerForPrivate.crawler_password)
 
-          cookies.signed[AdsenseCrawlerForPrivate.cookie_name] = {
-              :value => AdsenseCrawlerForPrivate.cookie_str(crawler_name, request),
-              :expires => 2.days.from_now,
-              :domain => AdsenseCrawlerForPrivate.cookie_domain
-          }
+          cookies.signed[AdsenseCrawlerForPrivate.cookie_name] = AdsenseCrawlerForPrivate.cookie_hash(crawler_name, request.remote_addr)
 
           AdsenseCrawlerForPrivate.logger.warn "login successfully. Crawler_name: #{crawler_name}"
 
