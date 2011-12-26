@@ -1,22 +1,3 @@
-
-1. Testejä paremmiksi
-
-- invalideilla cookieilla yrittäminen
-- cookien expiroituminen
-
-1.5 tee oman apin testiin tarvittavat metodit
-
-2. Käyttöön wesiin
-
-3. readme.md viilaus
-
-4. testit continous integration servun kautta
-
-
-----------------------------------------------
-----------------------------------------------
-----------------------------------------------
-
 # AdsenseCrawlerForPrivate
 
 Easy way to enable adsense crawler to login and see private or custom pages. Basically one custom login filter.
@@ -26,7 +7,7 @@ Easy way to enable adsense crawler to login and see private or custom pages. Bas
 ## Usage
 
 
-**Initialize: ** In RAILS_ROOT/config/initializers/adsense_crawler_for_private.rb
+**Initialize:** In RAILS_ROOT/config/initializers/adsense_crawler_for_private.rb
 
 ```
 # Configure adsense_crawler_for_private
@@ -41,7 +22,7 @@ AdsenseCrawlerForPrivate.crawler_password = "crawler_password_TEST"
 
 ```
 
-**Routes: **
+**Routes:**
 
 ```
   # Give url "http://domain.dom/adsense_crawler_for_private/login" for crawlers to log in
