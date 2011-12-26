@@ -5,6 +5,8 @@
 - invalideilla cookieilla yrittäminen
 - cookien expiroituminen
 
+1.5 tee oman apin testiin tarvittavat metodit
+
 2. Käyttöön wesiin
 
 3. readme.md viilaus
@@ -21,7 +23,7 @@
 ## Usage
 
 
-in config/initializers
+**Initialize: ** In RAILS_ROOT/config/initializers/adsense_crawler_for_private.rb
 
 ```
 # Configure adsense_crawler_for_private
@@ -36,8 +38,7 @@ AdsenseCrawlerForPrivate.crawler_password = "crawler_password_TEST"
 
 ```
 
-in controller define what to render for crawlers
-
+**Rendering etc usage:** in controller define what to render for crawlers
 
 ```
 
@@ -54,6 +55,8 @@ def SomeController << ApplicationController
     end
   end
 
+  # Here would be rest of the controller
+
 end
 
 ```
@@ -62,10 +65,12 @@ Or if you want only to check alongside other authentication you can call in your
 own authentication filters AdsenseCrawlerForPrivate.login_check(request)-method
 directly.
 
+
 ### Testing your own stuff
 
 You can test your filters by setting cookie in the same way as in
 AdsenseCrawlerLoginController#login
+
 
 ```
 In test:
@@ -85,11 +90,9 @@ Remember to update robots.txt if you have previously forbidden adsense to crawl 
 ## Requirements
 
 
-
-
 ## Support
 
-kato auto_strip_attributes hakemistosta tarvittavat
+
 
 ## License
 

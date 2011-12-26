@@ -1,5 +1,3 @@
-#puts "LOADDIING CONTROLLER"
-
 module AdsenseCrawlerForPrivate
   class AdsenseCrawlerLoginController < ApplicationController
 
