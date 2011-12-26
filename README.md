@@ -66,19 +66,19 @@ If you have enabled ip_ranges option you have to make sure that the ip that test
 ```
 test "here would be a test for logged crawler"
   # Dummy login for crawler
-  crawler_name="adsense_crawler"; ip="127.0.0.1"
+  crawler_name="adsense_crawler"; crawler_password = "adsense_pass"; ip="127.0.0.1" # These should be configured in initializers
   # In some frameworks cookies.signed would be enough. Some will need you to sign the cookie by yourself.
   # same as cookies.signed[AdsenseCrawlerForPrivate.cookie_name] = AdsenseCrawlerForPrivate.cookie_hash(crawler_name, ip)
   cookies[AdsenseCrawlerForPrivate.cookie_name] =
         ActiveSupport::MessageVerifier.new(Dummy::Application.config.secret_token).generate(
-            AdsenseCrawlerForPrivate.cookie_str(crawler_name, 2.days.from_now.httpdate, ip))
+            AdsenseCrawlerForPrivate.cookie_str(crawler_name, crawler_password, 2.days.from_now.httpdate, ip))
 
-  # Also make sure that
   #Normal test in here
   get :index
   assert_response :success
   assert response.body.include?("Hi normal crawler")
 end
+
 test "here would be a test for non-logged crawler"
   get :index
   assert_response :success
