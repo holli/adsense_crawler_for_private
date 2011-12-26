@@ -21,7 +21,7 @@ class MainController < ApplicationController
 
   def adsense_crawler_private_specific_page
     if AdsenseCrawlerForPrivate.login_check(cookies, request)
-      render :text => "private page for adsense"
+      render :text => "private render for crawler"
       return false
     end
   end

@@ -1,7 +1,6 @@
 
 1. Testejä paremmiksi
 
-- ip-checkit
 - invalideilla cookieilla yrittäminen
 - cookien expiroituminen
 
@@ -86,7 +85,12 @@ If you have enabled ip_ranges option you have to make sure that the ip that test
 ```
 test "here would be a test for logged crawler"
   # Dummy login for crawler
-  cookies.signed[AdsenseCrawlerForPrivate.cookie_name] = AdsenseCrawlerForPrivate.cookie_hash("crawler name str", "127.0.0.1")
+  crawler_name="adsense_crawler"; ip="127.0.0.1"
+  # In some frameworks cookies.signed would be enough. Some will need you to sign the cookie by yourself.
+  # same as cookies.signed[AdsenseCrawlerForPrivate.cookie_name] = AdsenseCrawlerForPrivate.cookie_hash(crawler_name, ip)
+  cookies[AdsenseCrawlerForPrivate.cookie_name] =
+        ActiveSupport::MessageVerifier.new(Dummy::Application.config.secret_token).generate(
+            AdsenseCrawlerForPrivate.cookie_str(crawler_name, 2.days.from_now.httpdate, ip))
 
   # Also make sure that
   #Normal test in here

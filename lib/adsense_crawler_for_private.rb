@@ -16,10 +16,11 @@ module AdsenseCrawlerForPrivate
     if !cookie.blank?
       self.logger.info "login_check: cookie found #{cookie}"
       begin
-        name, expiry_time, remote_addr = JSON.parse(cookie)
+        name, password, expiry_time, remote_addr = JSON.parse(cookie)
         expiry_time = Time.parse(expiry_time)
 
         if (name == AdsenseCrawlerForPrivate.crawler_name and
+            password == Digest::SHA1.hexdigest(AdsenseCrawlerForPrivate.crawler_password) and
             expiry_time > Time.now and
             request.remote_addr == remote_addr and
             self.ip_check(request))
@@ -39,15 +40,17 @@ module AdsenseCrawlerForPrivate
     return login_ok
   end
 
-  def self.cookie_hash(crawler_name, request_or_ip)
-    {:value => AdsenseCrawlerForPrivate.cookie_str(crawler_name, request_or_ip),
+  def self.cookie_hash(crawler_name, crawler_password, request_or_ip)
+    {:value => AdsenseCrawlerForPrivate.cookie_str(crawler_name, crawler_password, 2.days.from_now, request_or_ip),
      :expires => 2.days.from_now,
      :domain => AdsenseCrawlerForPrivate.cookie_domain}
   end
 
-	def self.cookie_str(crawler_name, request_or_ip)
+	def self.cookie_str(crawler_name, crawler_password, expire_time, request_or_ip)
     ip_str = request_or_ip.respond_to?(:remote_addr) ? request_or_ip.remote_addr : request_or_ip.to_s
-    return [crawler_name, 2.days.from_now.httpdate, ip_str].to_json
+
+    return [crawler_name, Digest::SHA1.hexdigest(crawler_password),
+            expire_time.httpdate, ip_str].to_json
 	end
 
 	def self.ip_check(request)
