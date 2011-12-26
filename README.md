@@ -1,15 +1,15 @@
-# TOOD / KESKEN
-# TOOD / KESKEN
-# TOOD / KESKEN
-# TOOD / KESKEN
-# TOOD / KESKEN
 
-
-# Testejä paremmiksi
+1. Testejä paremmiksi
 
 - ip-checkit
 - invalideilla cookieilla yrittäminen
 - cookien expiroituminen
+
+2. Käyttöön wesiin
+
+3. readme.md viilaus
+
+4. testit continous integration servun kautta
 
 
 ----------------------------------------------
@@ -24,11 +24,15 @@
 in config/initializers
 
 ```
-set name and password
+# Configure adsense_crawler_for_private
 
+AdsenseCrawlerForPrivate.cookie_name = "adsense_crawler"
+AdsenseCrawlerForPrivate.cookie_domain = :all
+AdsenseCrawlerForPrivate.crawler_name = "craw_name_TEST"
+AdsenseCrawlerForPrivate.crawler_password = "crawler_password_TEST"
 
-# If you are paranoid you can specify ip addresses that are ok to access
-asdf = [IPAddr.new("127.0.0.1")]
+# If you are paranoid you can specify ip addresses that are ok to the crawlers to access
+# AdsenseCrawlerForPrivate.ip_ranges = [IPAddr.new("127.0.0.1/20"), IPAddr.new("192.168.0.1")]
 
 ```
 
@@ -39,11 +43,10 @@ in controller define what to render for crawlers
 
 def SomeController << ApplicationController
 
-  before_filter :crawler_private_specific_page # normal authentication filters after this one
+  before_filter :adsense_crawler_private_specific_page # normal authentication filters after this one
 
-
-  def crawler_private_specific_page
-    if AdsenseCrawlerForPrivate.login_check(request)
+  def adsense_crawler_private_specific_page
+    if AdsenseCrawlerForPrivate.login_check(cookies, request)
       # here info how to render page for crawler
       # e.g render 'crawler_ad_page'
       # or creating a dummy login info
@@ -79,7 +82,12 @@ In test:
 
 Remember to update robots.txt if you have previously forbidden adsense to crawl certain pages.
 
-## Suppor etc
+## Requirements
+
+
+
+
+## Support
 
 kato auto_strip_attributes hakemistosta tarvittavat
 

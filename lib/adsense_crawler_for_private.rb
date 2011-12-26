@@ -3,7 +3,7 @@ require "adsense_crawler_for_private/engine"
 
 module AdsenseCrawlerForPrivate
 
-  mattr_accessor :cookie_name, :crawler_name, :crawler_password, :ip_ranges
+  mattr_accessor :cookie_name, :cookie_domain, :crawler_name, :crawler_password, :ip_ranges
 
   protected :crawler_password
 
@@ -41,7 +41,6 @@ module AdsenseCrawlerForPrivate
 
 	def self.cookie_str(name, request)
     return [name, 2.days.from_now.httpdate, request.remote_addr].to_json
-		#return "#{name}-:-#{expiry_time.httpdate}-:-#{request.remote_addr}-:-#{crawler_ad_hash(name, expiry_time)}"
 	end
 
 	def self.ip_check(request)

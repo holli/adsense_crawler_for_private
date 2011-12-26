@@ -7,30 +7,38 @@ module AdsenseCrawlerForPrivate
     WES_COOKIE_DOMAIN = "joo" # Set cookie domain automatically with two dots .adsf.inv
 
     def login
-      crawler_name = params[:crawler_name]
-      crawler_password = params[:crawler_password]
+      unless AdsenseCrawlerForPrivate.crawler_password.blank?
 
-      #TODO: IP CHECK HERE ALSO
-      if (crawler_name == AdsenseCrawlerForPrivate.crawler_name and
-          crawler_password == AdsenseCrawlerForPrivate.crawler_password)
-        #if (AdsenseCrawlerFilter.crawler_ad_ip_check(request) && crawler_name == CRAWLER_AD_NAME && crawler_password == CRAWLER_AD_PASSWORD)
+        crawler_name = params[:crawler_name]
+        crawler_password = params[:crawler_password]
 
-        cookies.signed[AdsenseCrawlerForPrivate.cookie_name] = {
-            :value => AdsenseCrawlerForPrivate.cookie_str(crawler_name, request),
-            :expires => 2.days.from_now,
-            :domain => :all
-        }
+        if (AdsenseCrawlerForPrivate.ip_check(request) and
+            crawler_name == AdsenseCrawlerForPrivate.crawler_name and
+            crawler_password == AdsenseCrawlerForPrivate.crawler_password)
+          #if (AdsenseCrawlerFilter.crawler_ad_ip_check(request) && crawler_name == CRAWLER_AD_NAME && crawler_password == CRAWLER_AD_PASSWORD)
 
-        AdsenseCrawlerForPrivate.logger.warn "login successfully. Crawler_name: #{crawler_name}"
+          cookies.signed[AdsenseCrawlerForPrivate.cookie_name] = {
+              :value => AdsenseCrawlerForPrivate.cookie_str(crawler_name, request),
+              :expires => 2.days.from_now,
+              :domain => AdsenseCrawlerForPrivate.cookie_domain
+          }
 
-        render :text => 'crawler login ok'
+          AdsenseCrawlerForPrivate.logger.warn "login successfully. Crawler_name: #{crawler_name}"
+
+          render :text => 'crawler login ok'
+        else
+          cookies.delete(AdsenseCrawlerForPrivate.cookie_name, :domain => AdsenseCrawlerForPrivate.cookie_domain)
+
+          AdsenseCrawlerForPrivate.logger.warn "login unsuccessful. Crawler_name: #{crawler_name}, crawler_password: #{crawler_password}, crawler_ip: #{request.remote_addr}"
+
+          render :text => 'crawler login unsuccessful', :status => 401 # 401 unauthorized
+        end
+
       else
-        AdsenseCrawlerForPrivate.logger.warn "login unsuccessful. Crawler_name: #{crawler_name}, crawler_password: #{crawler_password}, crawler_ip: #{request.remote_addr}"
-
-        render :text => 'crawler login not ok', :status => 401 # 401 unauthorized
+        str = "AdsenseCrawlerForPrivate not configured, no password given"
+        AdsenseCrawlerForPrivate.logger(str)
+        render :text => str
       end
-
-      #AdsenseCrawlerForPrivate.logger.info request.headers.inspect
 
     end
   
