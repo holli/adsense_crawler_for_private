@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../../test_helper'
 
 class FilteringHelperTest < ActionDispatch::IntegrationTest
-  fixtures :all
+  #fixtures :all
 
   setup do
     @crawler_name = AdsenseCrawlerForPrivate.crawler_name = "craw_name_TEST"

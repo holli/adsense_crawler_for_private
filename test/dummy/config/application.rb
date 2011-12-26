@@ -1,6 +1,11 @@
 require File.expand_path('../boot', __FILE__)
 
-require 'rails/all'
+# This is a custom way of disable activerecord database, used instead of default "require 'rails/all'"
+# see http://stackoverflow.com/questions/2212709/remove-activerecord-in-rails-3-beta for more info
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "active_resource/railtie"
+require "sprockets/railtie"
 
 Bundler.require
 require "adsense_crawler_for_private"

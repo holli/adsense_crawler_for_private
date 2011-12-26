@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../../test_helper'
 
 class LoginTest < ActionDispatch::IntegrationTest
-  fixtures :all
+  #fixtures :all
 
   def setup
     AdsenseCrawlerForPrivate.ip_ranges = nil

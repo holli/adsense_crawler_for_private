@@ -7,11 +7,11 @@ require "adsense_crawler_for_private/version"
 Gem::Specification.new do |s|
   s.name        = "adsense_crawler_for_private"
   s.version     = AdsenseCrawlerForPrivate::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of AdsenseCrawlerForPrivate."
-  s.description = "TODO: Description of AdsenseCrawlerForPrivate."
+  s.authors     = ["Olli Huotari"]
+  s.email       = ["olli.huotari@iki.fi"]
+  s.homepage    = "https://github.com/holli/adsense_crawler_for_private/"
+  s.summary     = "Easy way to enable adsense crawler to login and see private or custom pages. Basically one custom login filter."
+  s.description = "Easy way to enable adsense crawler to login and see private or custom pages. Basically one custom login filter."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
