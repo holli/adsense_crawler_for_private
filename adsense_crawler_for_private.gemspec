@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Easy way to enable adsense crawler to login and see private or custom pages. Basically one custom login filter."
   s.description = "Easy way to enable adsense crawler to login and see private or custom pages. Basically one custom login filter with documentation."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "> 3.1.0"
