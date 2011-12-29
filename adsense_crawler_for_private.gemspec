@@ -11,12 +11,12 @@ Gem::Specification.new do |s|
   s.email       = ["olli.huotari@iki.fi"]
   s.homepage    = "https://github.com/holli/adsense_crawler_for_private/"
   s.summary     = "Easy way to enable adsense crawler to login and see private or custom pages. Basically one custom login filter."
-  s.description = "Easy way to enable adsense crawler to login and see private or custom pages. Basically one custom login filter."
+  s.description = "Easy way to enable adsense crawler to login and see private or custom pages. Basically one custom login filter with documentation."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails", "~> 3.1.3"
+  s.add_dependency "rails", "> 3.1.0"
   # s.add_dependency "jquery-rails"
 
   s.add_development_dependency "sqlite3"

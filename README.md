@@ -65,14 +65,18 @@ You can test your filters by setting cookie in the same way as in AdsenseCrawler
 If you have enabled ip_ranges option you have to make sure that the ip that tests use is enabled for crawlers.
 
 ```
-test "here would be a test for logged crawler"
-  # Dummy login for crawler
-  crawler_name="adsense_crawler"; crawler_password = "adsense_pass"; ip="127.0.0.1" # These should be configured in initializers
+test "here would be a test for logged crawler in functional tests"
+  # Dummy login for crawler, These should be configured in initializers
+  crawler_name="adsense_crawler"; crawler_password = "adsense_pass";
+  @request.remote_addr = ip = "127.0.0.1"
+
   # In some frameworks cookies.signed would be enough. Some will need you to sign the cookie by yourself.
+  # If you have a better way, let me know
   # same as cookies.signed[AdsenseCrawlerForPrivate.cookie_name] = AdsenseCrawlerForPrivate.cookie_hash(crawler_name, ip)
-  cookies[AdsenseCrawlerForPrivate.cookie_name] =
+  @request.cookies[AdsenseCrawlerForPrivate.cookie_name] =
         ActiveSupport::MessageVerifier.new(Dummy::Application.config.secret_token).generate(
-            AdsenseCrawlerForPrivate.cookie_str(crawler_name, crawler_password, 2.days.from_now.httpdate, ip))
+            AdsenseCrawlerForPrivate.cookie_str(crawler_name, crawler_password, 2.days.from_now, ip))
+
 
   #Normal test in here
   get :index

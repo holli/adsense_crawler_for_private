@@ -1,6 +1,9 @@
 module AdsenseCrawlerForPrivate
   class AdsenseCrawlerLoginController < ApplicationController
 
+    # Making sure that verify_authenticity_token is not on, adsense does not have it
+    skip_before_filter :verify_authenticity_token, :only => :login
+
     def login
       unless AdsenseCrawlerForPrivate.crawler_password.blank?
 
