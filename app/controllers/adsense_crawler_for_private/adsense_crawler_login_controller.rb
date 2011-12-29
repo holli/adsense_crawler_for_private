@@ -4,8 +4,8 @@ module AdsenseCrawlerForPrivate
     def login
       unless AdsenseCrawlerForPrivate.crawler_password.blank?
 
-        crawler_name = params[:crawler_name]
-        crawler_password = params[:crawler_password]
+        crawler_name = params[:name]
+        crawler_password = params[:password]
 
         if (AdsenseCrawlerForPrivate.ip_check(request) and
             crawler_name == AdsenseCrawlerForPrivate.crawler_name and
@@ -15,7 +15,7 @@ module AdsenseCrawlerForPrivate
 
           AdsenseCrawlerForPrivate.logger.warn "login successfully. Crawler_name: #{crawler_name}"
 
-          render :text => 'crawler login ok'
+          render :text => 'crawler login ok', :status => 200
         else
           cookies.delete(AdsenseCrawlerForPrivate.cookie_name, :domain => AdsenseCrawlerForPrivate.cookie_domain)
 
@@ -26,8 +26,8 @@ module AdsenseCrawlerForPrivate
 
       else
         str = "AdsenseCrawlerForPrivate not configured, no password given."
-        AdsenseCrawlerForPrivate.logger(str)
-        render :text => str
+        AdsenseCrawlerForPrivate.logger.warn(str)
+        render :text => str, :status => 401
       end
 
     end

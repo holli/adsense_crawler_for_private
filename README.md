@@ -26,6 +26,7 @@ AdsenseCrawlerForPrivate.crawler_password = "crawler_password_TEST"
 
 ```
   # Give url "http://domain.dom/adsense_crawler_for_private/login" for crawlers to log in
+  # or directly "http://domain.dom/adsense_crawler_for_private/login?name=craw_name&password=craw_password"
   mount AdsenseCrawlerForPrivate::Engine => "/adsense_crawler_for_private"
 ```
 

@@ -13,13 +13,20 @@ class LoginTest < ActionDispatch::IntegrationTest
     @crawler_password = AdsenseCrawlerForPrivate.crawler_password = "crawler_password_TEST"
   end
 
+  test "login without right setup (password nil)" do
+    AdsenseCrawlerForPrivate.crawler_password = nil
+    get 'adsense_crawler_for_private/login'
+    assert_response 401
+    assert_equal 'AdsenseCrawlerForPrivate not configured, no password given.', @response.body
+  end
+
   test "login with right access code from right ip" do
     ip_used = "199.199.199.199"
     AdsenseCrawlerForPrivate.ip_ranges = [IPAddr.new(ip_used.to_s)]
     ActionDispatch::Request.any_instance.stubs(:remote_addr).returns(ip_used.to_s)
 
     get 'adsense_crawler_for_private/login',
-        :crawler_name => @crawler_name, :crawler_password => @crawler_password
+        :name => @crawler_name, :password => @crawler_password
     assert_response :success
     assert_equal 'crawler login ok', @response.body
 
@@ -34,7 +41,7 @@ class LoginTest < ActionDispatch::IntegrationTest
     ActionDispatch::Request.any_instance.stubs(:remote_addr).returns(ip_used.to_s)
 
     get 'adsense_crawler_for_private/login',
-        :crawler_name => @crawler_name, :crawler_password => @crawler_password
+        :name => @crawler_name, :password => @crawler_password
     assert_response :success
     assert_equal 'crawler login ok', @response.body
 
@@ -49,7 +56,7 @@ class LoginTest < ActionDispatch::IntegrationTest
     ActionDispatch::Request.any_instance.stubs(:remote_addr).returns("1.1.1.1")
 
     get 'adsense_crawler_for_private/login',
-        :crawler_name => @crawler_name, :crawler_password => @crawler_password
+        :name => @crawler_name, :password => @crawler_password
 
     assert_response 401
     assert_equal 'crawler login unsuccessful', @response.body
@@ -61,7 +68,7 @@ class LoginTest < ActionDispatch::IntegrationTest
   test "login with wrong access codes" do
 
     get 'adsense_crawler_for_private/login',
-        :crawler_name => @crawler_name, :crawler_password => "wrong_pass"
+        :name => @crawler_name, :password => "wrong_pass"
     assert_response 401
     assert_equal 'crawler login unsuccessful', @response.body
 
