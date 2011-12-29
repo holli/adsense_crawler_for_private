@@ -14,8 +14,8 @@ Easy way to enable adsense crawler to login and see private or custom pages. Bas
 
 AdsenseCrawlerForPrivate.cookie_name = "adsense_crawler"
 AdsenseCrawlerForPrivate.cookie_domain = :all
-AdsenseCrawlerForPrivate.crawler_name = "craw_name_TEST"
-AdsenseCrawlerForPrivate.crawler_password = "crawler_password_TEST"
+AdsenseCrawlerForPrivate.crawler_name = "test_name"
+AdsenseCrawlerForPrivate.crawler_password = "test_password"
 
 # If you are paranoid you can specify ip addresses that are ok to the crawlers to access
 # AdsenseCrawlerForPrivate.ip_ranges = [IPAddr.new("127.0.0.1"), IPAddr.new("192.168.0.1/20")]
@@ -26,7 +26,7 @@ AdsenseCrawlerForPrivate.crawler_password = "crawler_password_TEST"
 
 ```
   # Give url "http://domain.dom/adsense_crawler_for_private/login" for crawlers to log in
-  # or directly "http://domain.dom/adsense_crawler_for_private/login?name=craw_name&password=craw_password"
+  # or directly "http://domain.dom/adsense_crawler_for_private/login?name=test_name&password=test_password"
   mount AdsenseCrawlerForPrivate::Engine => "/adsense_crawler_for_private"
 ```
 
