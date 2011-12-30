@@ -36,19 +36,9 @@ class FilteringHelperTest < ActionDispatch::IntegrationTest
   ####################################
   # INVALID IP TESTS
 
-  test "specific render for logged crawler but with changed ip" do
-    set_login_cookie
-
-    ActionDispatch::Request.any_instance.stubs(:remote_addr).returns("192.168.0.1")
-
-    get 'forbidden_render'
-
-    assert_response :redirect, "should not render private page"
-  end
-
   test "specific render for logged crawler but with not allowed ip" do
-    set_login_cookie
     AdsenseCrawlerForPrivate.ip_ranges = [IPAddr.new("199.199.199.199")]
+    set_login_cookie(@crawler_name, @crawler_password, "199.199.199.199")
 
     get 'forbidden_render'
 

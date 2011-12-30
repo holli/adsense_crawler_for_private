@@ -22,7 +22,6 @@ module AdsenseCrawlerForPrivate
         if (name == AdsenseCrawlerForPrivate.crawler_name and
             password == Digest::SHA1.hexdigest(AdsenseCrawlerForPrivate.crawler_password) and
             expiry_time > Time.now and
-            request.remote_addr == remote_addr and
             self.ip_check(request))
           login_ok = true
           self.logger.warn "login_check was ok for #{name}"
@@ -31,7 +30,11 @@ module AdsenseCrawlerForPrivate
         self.logger.warn "login_check problem parsing cookie json: #{e.inspect}"
       ensure
         unless login_ok
-          self.logger.warn "login_check wasn't ok, even though cookie was found."
+          info_str = "login_check wasn't ok, even though cookie was found."
+          info_str += "warning: ip was not accepted" unless self.ip_check(request)
+          
+          self.logger.warn info_str
+
           cookies.delete(AdsenseCrawlerForPrivate.cookie_name)
         end
       end
