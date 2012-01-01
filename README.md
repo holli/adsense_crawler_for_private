@@ -7,6 +7,12 @@ Easy way to enable adsense crawler to login and see private or custom pages. Bas
 ## Usage
 
 
+**Install:** In RAILS_ROOT/Gemfile.rb
+
+```
+gem 'adsense_crawler_for_private'
+```
+
 **Initialize:** In RAILS_ROOT/config/initializers/adsense_crawler_for_private.rb
 
 ```
