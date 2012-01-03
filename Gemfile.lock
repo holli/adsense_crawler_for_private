@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    adsense_crawler_for_private (1.0.1)
+    adsense_crawler_for_private (1.1.0)
       rails (> 3.1.0)
 
 GEM

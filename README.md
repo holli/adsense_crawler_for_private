@@ -1,6 +1,8 @@
 # AdsenseCrawlerForPrivate
 
-Easy way to enable adsense crawler to login and see private or custom pages. Basically one custom login filter.
+Easy way to enable AdSense crawler to login and see private or custom pages in your rails application.
+Basically one custom login filter. Gem enables you to easily slightly increase revenues from Google AdSense/AdWords. It
+makes it easy to enable crawling on private pages and so get better targeted ads even in pages behind login screen.
 
 [<img src="https://secure.travis-ci.org/holli/adsense_crawler_for_private.png" />](http://travis-ci.org/holli/adsense_crawler_for_private)
 

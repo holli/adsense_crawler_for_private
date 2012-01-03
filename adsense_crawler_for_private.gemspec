@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ["olli.huotari@iki.fi"]
   s.homepage    = "https://github.com/holli/adsense_crawler_for_private/"
   s.summary     = "Easy way to enable adsense crawler to login and see private or custom pages. Basically one custom login filter."
-  s.description = "Easy way to enable adsense crawler to login and see private or custom pages. Basically one custom login filter with documentation."
+  s.description = "Easy way to enable AdSense crawler to login and see private or custom pages in your rails application. Basically one custom login filter. Gem enables you to easily slightly increase revenues from Google AdSense/AdWords. It makes it easy to enable crawling on private pages and so get better targeted ads even in pages behind login screen."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
