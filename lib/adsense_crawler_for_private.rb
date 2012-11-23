@@ -16,7 +16,7 @@ module AdsenseCrawlerForPrivate
     if !cookie.blank?
       self.logger.info "login_check: cookie found #{cookie}"
       begin
-        name, password, expiry_time, remote_addr = JSON.parse(cookie)
+        name, password, expiry_time, remote_ip = JSON.parse(cookie)
         expiry_time = Time.parse(expiry_time)
 
         if (name == AdsenseCrawlerForPrivate.crawler_name and
@@ -49,16 +49,16 @@ module AdsenseCrawlerForPrivate
      :domain => AdsenseCrawlerForPrivate.cookie_domain}
   end
 
-	def self.cookie_str(crawler_name, crawler_password, expire_time, request_or_ip)
-    ip_str = request_or_ip.respond_to?(:remote_addr) ? request_or_ip.remote_addr : request_or_ip.to_s
+  def self.cookie_str(crawler_name, crawler_password, expire_time, request_or_ip)
+    ip_str = request_or_ip.respond_to?(:remote_ip) ? request_or_ip.remote_ip : request_or_ip.to_s
 
     return [crawler_name, Digest::SHA1.hexdigest(crawler_password),
             expire_time.httpdate, ip_str].to_json
-	end
+  end
 
-	def self.ip_check(request)
+  def self.ip_check(request)
     unless AdsenseCrawlerForPrivate.ip_ranges.nil?
-      ip_check = ::IPAddr.new(request.remote_addr)
+      ip_check = ::IPAddr.new(request.remote_ip)
       AdsenseCrawlerForPrivate.ip_ranges.each do |ip_accepted|
         return true if ip_accepted.include?(ip_check)
       end

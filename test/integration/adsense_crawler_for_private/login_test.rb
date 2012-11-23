@@ -23,7 +23,7 @@ class LoginTest < ActionDispatch::IntegrationTest
   test "login with right access code from right ip" do
     ip_used = "199.199.199.199"
     AdsenseCrawlerForPrivate.ip_ranges = [IPAddr.new(ip_used.to_s)]
-    ActionDispatch::Request.any_instance.stubs(:remote_addr).returns(ip_used.to_s)
+    ActionDispatch::Request.any_instance.stubs(:remote_ip).returns(ip_used.to_s)
 
     get 'adsense_crawler_for_private/login',
         :name => @crawler_name, :password => @crawler_password
@@ -39,7 +39,7 @@ class LoginTest < ActionDispatch::IntegrationTest
   test "login with right access code from right ip and with post-request" do
     ip_used = "199.199.199.199"
     AdsenseCrawlerForPrivate.ip_ranges = [IPAddr.new(ip_used.to_s)]
-    ActionDispatch::Request.any_instance.stubs(:remote_addr).returns(ip_used.to_s)
+    ActionDispatch::Request.any_instance.stubs(:remote_ip).returns(ip_used.to_s)
 
     post 'adsense_crawler_for_private/login',
         :name => @crawler_name, :password => @crawler_password
@@ -54,7 +54,7 @@ class LoginTest < ActionDispatch::IntegrationTest
 
   test "login with right access code and nil ip's" do
     ip_used = "123.123.123.123"
-    ActionDispatch::Request.any_instance.stubs(:remote_addr).returns(ip_used.to_s)
+    ActionDispatch::Request.any_instance.stubs(:remote_ip).returns(ip_used.to_s)
 
     get 'adsense_crawler_for_private/login',
         :name => @crawler_name, :password => @crawler_password
@@ -69,7 +69,7 @@ class LoginTest < ActionDispatch::IntegrationTest
 
   test "login from wrong ip" do
     AdsenseCrawlerForPrivate.ip_ranges = [IPAddr.new("199.199.199.199")]
-    ActionDispatch::Request.any_instance.stubs(:remote_addr).returns("1.1.1.1")
+    ActionDispatch::Request.any_instance.stubs(:remote_ip).returns("1.1.1.1")
 
     get 'adsense_crawler_for_private/login',
         :name => @crawler_name, :password => @crawler_password
