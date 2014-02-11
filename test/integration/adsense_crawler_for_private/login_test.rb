@@ -77,7 +77,7 @@ class LoginTest < ActionDispatch::IntegrationTest
     assert_response 401
     assert_equal 'crawler login unsuccessful', @response.body
 
-    assert_equal "", cookies[@cookie_name], "should delete cookie"
+    assert cookies[@cookie_name].blank?, "should delete cookie"
 
   end
 
@@ -88,6 +88,6 @@ class LoginTest < ActionDispatch::IntegrationTest
     assert_response 401
     assert_equal 'crawler login unsuccessful', @response.body
 
-    assert_equal "", cookies[@cookie_name], "should delete cookie"
+    assert cookies[@cookie_name].blank?, "should delete cookie"
   end
 end

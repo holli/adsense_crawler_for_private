@@ -105,7 +105,7 @@ Remember to update robots.txt if you have previously forbidden adsense to crawl 
 
 ## Requirements
 
-Gem has been tested with ruby 1.8.7, 1.9.2 and Rails 3.1.
+Gem has been tested with Ruby 1.9.3, Ruby 2.1, Rails 3.1 and Rails 4.
 
 [<img src="https://secure.travis-ci.org/holli/adsense_crawler_for_private.png" />](http://travis-ci.org/holli/adsense_crawler_for_private)
 

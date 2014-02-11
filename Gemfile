@@ -13,6 +13,19 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-# To use debugger
-#gem 'ruby-debug'
+
+
+# For travis testing
+# http://schneems.com/post/50991826838/testing-against-multiple-rails-versions
+rails_version = ENV["RAILS_VERSION"] || "default"
+
+rails = case rails_version
+  when "default"
+    ">= 3.2.0"
+    #"~> 3.2.0"
+  else
+    "~> #{rails_version}"
+  end
+
+gem "rails", rails
 
