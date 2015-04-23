@@ -15,7 +15,7 @@ class LoginTest < ActionDispatch::IntegrationTest
 
   test "login without right setup (password nil)" do
     AdsenseCrawlerForPrivate.crawler_password = nil
-    get 'adsense_crawler_for_private/login'
+    get '/adsense_crawler_for_private/login'
     assert_response 401
     assert_equal 'AdsenseCrawlerForPrivate not configured, no password given.', @response.body
   end
@@ -25,13 +25,12 @@ class LoginTest < ActionDispatch::IntegrationTest
     AdsenseCrawlerForPrivate.ip_ranges = [IPAddr.new(ip_used.to_s)]
     ActionDispatch::Request.any_instance.stubs(:remote_ip).returns(ip_used.to_s)
 
-    get 'adsense_crawler_for_private/login',
+    get '/adsense_crawler_for_private/login',
         :name => @crawler_name, :password => @crawler_password
     assert_response :success
     assert_equal 'crawler login ok', @response.body
 
-    cookie_str = cookies[@cookie_name]
-    cookie_str = ActiveSupport::MessageVerifier.new(Dummy::Application.config.secret_token).verify(cookie_str)
+    cookie_str = @controller.send(:cookies).signed[@cookie_name].to_s
     assert cookie_str.include?(ip_used.to_s), "cookie should include current ip"
     assert cookie_str.include?(@crawler_name), "cookie should include crawler name"
   end
@@ -41,13 +40,12 @@ class LoginTest < ActionDispatch::IntegrationTest
     AdsenseCrawlerForPrivate.ip_ranges = [IPAddr.new(ip_used.to_s)]
     ActionDispatch::Request.any_instance.stubs(:remote_ip).returns(ip_used.to_s)
 
-    post 'adsense_crawler_for_private/login',
+    post '/adsense_crawler_for_private/login',
         :name => @crawler_name, :password => @crawler_password
     assert_response :success
     assert_equal 'crawler login ok', @response.body
 
-    cookie_str = cookies[@cookie_name]
-    cookie_str = ActiveSupport::MessageVerifier.new(Dummy::Application.config.secret_token).verify(cookie_str)
+    cookie_str = @controller.send(:cookies).signed[@cookie_name].to_s
     assert cookie_str.include?(ip_used.to_s), "cookie should include current ip"
     assert cookie_str.include?(@crawler_name), "cookie should include crawler name"
   end
@@ -56,13 +54,12 @@ class LoginTest < ActionDispatch::IntegrationTest
     ip_used = "123.123.123.123"
     ActionDispatch::Request.any_instance.stubs(:remote_ip).returns(ip_used.to_s)
 
-    get 'adsense_crawler_for_private/login',
+    get '/adsense_crawler_for_private/login',
         :name => @crawler_name, :password => @crawler_password
     assert_response :success
     assert_equal 'crawler login ok', @response.body
 
-    cookie_str = cookies[@cookie_name]
-    cookie_str = ActiveSupport::MessageVerifier.new(Dummy::Application.config.secret_token).verify(cookie_str)
+    cookie_str = @controller.send(:cookies).signed[@cookie_name].to_s
     assert cookie_str.include?(ip_used.to_s), "cookie should include current ip"
     assert cookie_str.include?(@crawler_name), "cookie should include crawler name"
   end
@@ -71,7 +68,7 @@ class LoginTest < ActionDispatch::IntegrationTest
     AdsenseCrawlerForPrivate.ip_ranges = [IPAddr.new("199.199.199.199")]
     ActionDispatch::Request.any_instance.stubs(:remote_ip).returns("1.1.1.1")
 
-    get 'adsense_crawler_for_private/login',
+    get '/adsense_crawler_for_private/login',
         :name => @crawler_name, :password => @crawler_password
 
     assert_response 401
@@ -83,7 +80,7 @@ class LoginTest < ActionDispatch::IntegrationTest
 
   test "login with wrong access codes" do
 
-    get 'adsense_crawler_for_private/login',
+    get '/adsense_crawler_for_private/login',
         :name => @crawler_name, :password => "wrong_pass"
     assert_response 401
     assert_equal 'crawler login unsuccessful', @response.body
