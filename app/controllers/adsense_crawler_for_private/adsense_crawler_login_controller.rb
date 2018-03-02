@@ -2,7 +2,7 @@ module AdsenseCrawlerForPrivate
   class AdsenseCrawlerLoginController < ApplicationController
 
     # Making sure that verify_authenticity_token is not on, adsense does not have it
-    skip_before_filter :verify_authenticity_token, :only => :login
+    skip_before_action :verify_authenticity_token, :only => :login, :raise => false
 
     def login
       unless AdsenseCrawlerForPrivate.crawler_password.blank?
@@ -18,19 +18,19 @@ module AdsenseCrawlerForPrivate
 
           AdsenseCrawlerForPrivate.logger.warn "login successfully. Crawler_name: #{crawler_name}, crawler_ip: #{request.remote_ip}"
 
-          render :text => 'crawler login ok', :status => 200
+          render :plain => 'crawler login ok', :status => 200
         else
           cookies.delete(AdsenseCrawlerForPrivate.cookie_name, :domain => AdsenseCrawlerForPrivate.cookie_domain)
 
           AdsenseCrawlerForPrivate.logger.warn "login unsuccessful. Crawler_name: #{crawler_name}, crawler_password: #{crawler_password}, crawler_ip: #{request.remote_ip}"
 
-          render :text => 'crawler login unsuccessful', :status => 401 # 401 unauthorized
+          render :plain => 'crawler login unsuccessful', :status => 401 # 401 unauthorized
         end
 
       else
         str = "AdsenseCrawlerForPrivate not configured, no password given."
         AdsenseCrawlerForPrivate.logger.warn(str)
-        render :text => str, :status => 401
+        render :plain => str, :status => 401
       end
 
     end

@@ -44,7 +44,7 @@ AdsenseCrawlerForPrivate.crawler_password = "test_password"
 
 def SomeController << ApplicationController
 
-  before_filter :adsense_crawler_private_specific_page # normal authentication filters after this one
+  before_action :adsense_crawler_private_specific_page # normal authentication filters after this one
 
   def adsense_crawler_private_specific_page
     if AdsenseCrawlerForPrivate.login_check(cookies, request)

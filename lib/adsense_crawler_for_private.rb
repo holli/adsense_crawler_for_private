@@ -8,7 +8,7 @@ module AdsenseCrawlerForPrivate
   protected :crawler_password
 
   # Checks crawler cookie, returns true if logged in
-	def self.login_check(cookies, request)
+  def self.login_check(cookies, request)
     cookie = cookies.signed[AdsenseCrawlerForPrivate.cookie_name]
 
     login_ok = false
@@ -24,7 +24,7 @@ module AdsenseCrawlerForPrivate
             expiry_time > Time.now and
             self.ip_check(request))
           login_ok = true
-          self.logger.warn "login_check was ok for #{name}"
+          self.logger.warn "login_check was ok for #{name}, org_ip #{remote_ip}, current_ip #{request.remote_ip}"
         end
       rescue JSON::ParserError => e
         self.logger.warn "login_check problem parsing cookie json: #{e.inspect}"

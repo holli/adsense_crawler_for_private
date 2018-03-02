@@ -1,16 +1,16 @@
 class MainController < ApplicationController
 
-  before_filter :adsense_crawler_private_specific_page, :only => :forbidden_render
-  before_filter :redirect_if_not_logged, :only => :forbidden_render
+  before_action :adsense_crawler_private_specific_page, :only => :forbidden_render
+  before_action :redirect_if_not_logged, :only => :forbidden_render
 
 
   def normal_render
     #debugger
-    render :text => 'this is rendered normally'
+    render :plain => 'this is rendered normally'
   end
 
   def forbidden_render
-    render :text => 'never used'
+    render :plain => 'never used'
   end
 
   protected
@@ -21,7 +21,7 @@ class MainController < ApplicationController
 
   def adsense_crawler_private_specific_page
     if AdsenseCrawlerForPrivate.login_check(cookies, request)
-      render :text => "private render for crawler"
+      render :plain => "private render for crawler"
       return false
     end
   end
