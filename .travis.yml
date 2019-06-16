@@ -6,4 +6,6 @@ before_script:
 env:
   - "RAILS_VERSION=5.0.6"
   - "RAILS_VERSION=5.1.5"
+  - "RAILS_VERSION=5.2.3"
+#  - "RAILS_VERSION=6.0.0.rc1"
 
