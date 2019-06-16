@@ -26,4 +26,3 @@ case rails_version
     gem "rails", "~> #{rails_version}"
   end
 
-
