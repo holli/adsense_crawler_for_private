@@ -10,7 +10,6 @@ class FilteringHelperTest < ActionDispatch::IntegrationTest
 
     @crawler_name = AdsenseCrawlerForPrivate.crawler_name = "craw_name_TEST"
     @crawler_password = AdsenseCrawlerForPrivate.crawler_password = "crawler_password_TEST"
-    binding.pry
   end
 
   test "normal_render as normal for testing dummy application itself" do
