@@ -13,7 +13,7 @@ gemspec
 # Git. Remember to move these dependencies to your gemspec before releasing
 # your gem to rubygems.org.
 
-
+gem 'pry'
 
 # For travis testing
 # http://schneems.com/post/50991826838/testing-against-multiple-rails-versions

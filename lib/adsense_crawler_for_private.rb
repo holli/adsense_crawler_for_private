@@ -32,14 +32,14 @@ module AdsenseCrawlerForPrivate
         unless login_ok
           info_str = "login_check wasn't ok, even though cookie was found."
           info_str += "warning: ip was not accepted" unless self.ip_check(request)
-          
+
           self.logger.warn info_str
 
           cookies.delete(AdsenseCrawlerForPrivate.cookie_name)
         end
       end
     end
-    
+
     return login_ok
   end
 

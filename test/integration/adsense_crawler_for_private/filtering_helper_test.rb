@@ -80,9 +80,11 @@ class FilteringHelperTest < ActionDispatch::IntegrationTest
     crawler_name ||= @crawler_name
     crawler_password ||= @crawler_password
     ip ||= "127.0.0.1"
-    cookies[AdsenseCrawlerForPrivate.cookie_name] =
-        ActiveSupport::MessageVerifier.new(Dummy::Application.config.secret_token).generate(
-            AdsenseCrawlerForPrivate.cookie_str(crawler_name, crawler_password, 2.days.from_now, ip))
+
+    cookie_jar = ActionDispatch::Request.new(Rails.application.env_config.deep_dup).cookie_jar
+    cookie_jar.signed[AdsenseCrawlerForPrivate.cookie_name] =
+      AdsenseCrawlerForPrivate.cookie_str(crawler_name, crawler_password, 2.days.from_now, ip)
+    cookies[AdsenseCrawlerForPrivate.cookie_name] = cookie_jar[AdsenseCrawlerForPrivate.cookie_name]
   end
 
 end
