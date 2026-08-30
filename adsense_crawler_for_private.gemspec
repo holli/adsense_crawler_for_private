@@ -20,8 +20,8 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", ">= 7.1", "< 9"
   # s.add_dependency "jquery-rails"
 
-  s.add_development_dependency "sqlite3"
-  s.add_development_dependency "mocha"
+  s.add_development_dependency "sqlite3", ">= 1.4"
+  s.add_development_dependency "mocha", ">= 2.1"
 
   #s.require_paths = ["lib", "app/controllers/adsense_crawler_for_private"]
 
