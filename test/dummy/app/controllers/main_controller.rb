@@ -16,7 +16,7 @@ class MainController < ApplicationController
   protected
 
   def redirect_if_not_logged
-    redirect_to "http://www.you-were-not-logged-in.inv"
+    redirect_to "http://www.you-were-not-logged-in.inv", allow_other_host: true
   end
 
   def adsense_crawler_private_specific_page
